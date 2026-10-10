@@ -128,6 +128,7 @@ final class CheckModel: ObservableObject {
         case .expired: return "Enrolment expired"
         case .leaseExpired: return "Sync needed"
         case .match: return "Match"
+        @unknown default: return "Try again"
         }
     }
 
@@ -139,6 +140,7 @@ final class CheckModel: ObservableObject {
         case .notLive: return "That looked like a photo or a screen."
         case .limitReached: return "The sandbox is full on this phone."
         case .enrolled: return "Enrolled."
+        @unknown default: return "Tap Enrol my face to try again."
         }
     }
 }
