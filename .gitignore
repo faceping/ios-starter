@@ -1,0 +1,13 @@
+# Your sandbox key and team (see Config/FaceCheck.xcconfig)
+Config/Local.xcconfig
+
+# Xcode
+xcuserdata/
+DerivedData/
+build/
+*.xcuserstate
+.swiftpm/
+.build/
+
+# macOS
+.DS_Store

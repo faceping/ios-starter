@@ -1,0 +1,11 @@
+// FaceCheck build settings.
+//
+// Your sandbox key and your Apple team: set them in Config/Local.xcconfig (ignored by git), so they never end up in a
+// commit. Create it with these two lines:
+//   FACEPING_SANDBOX_KEY = fp_test_yourkey
+//   DEVELOPMENT_TEAM = YOURTEAMID
+// Or replace the placeholder below, or pass FACEPING_SANDBOX_KEY=fp_test_yourkey to xcodebuild.
+// Get a free sandbox key at https://app.faceping.ai/signup (Developers > Sandbox keys > Create sandbox key).
+FACEPING_SANDBOX_KEY = fp_test_…
+
+#include? "Local.xcconfig"
