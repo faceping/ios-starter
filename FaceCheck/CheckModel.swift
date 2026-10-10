@@ -14,7 +14,7 @@ final class CheckModel: ObservableObject {
     @Published var enrolled = false
     @Published var busy = false
     @Published var offline = false
-    @Published var canEnrol = true
+    @Published var canEnroll = true
 
     private let faceping = FacePing.shared
     private let monitor = NWPathMonitor()
@@ -39,7 +39,7 @@ final class CheckModel: ObservableObject {
         started = true
         guard let faceping else {
             show("Sandbox key problem", "Set your sandbox key in Config/Local.xcconfig or Config/FaceCheck.xcconfig (it starts with fp_test_).", .red)
-            canEnrol = false
+            canEnroll = false
             return
         }
         do {
@@ -54,12 +54,12 @@ final class CheckModel: ObservableObject {
         setEnrolled(faceping.enrolledIds.contains("me"))
     }
 
-    func enrol() {
+    func enroll() {
         run { faceping in
             self.show("Hold still", "Taking the photo…", .ink)
             self.camera.guideState = .working
             let photo = try await self.camera.capture()
-            let result = try await faceping.enrol(id: "me", photo: photo)
+            let result = try await faceping.enroll(id: "me", photo: photo)
             self.camera.guideState = .ready
             if result.isEnrolled {
                 self.setEnrolled(true)
@@ -132,7 +132,7 @@ final class CheckModel: ObservableObject {
         }
     }
 
-    static func describe(_ outcome: EnrolOutcome) -> String {
+    static func describe(_ outcome: EnrollOutcome) -> String {
         switch outcome {
         case .noFace: return "No face seen. Look at the camera."
         case .multipleFaces: return "More than one face. Just you, please."

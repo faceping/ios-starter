@@ -29,7 +29,7 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(model.title)
                         .font(.system(size: 17, weight: .bold))
-                        .foregroundColor(model.tone.colour)
+                        .foregroundColor(model.tone.color)
                     Text(model.note)
                         .font(.system(size: 14))
                         .foregroundColor(.slate)
@@ -44,7 +44,7 @@ struct ContentView: View {
             .background(Color.cameraBackground)
             .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
 
-            Button(action: model.enrol) {
+            Button(action: model.enroll) {
                 Text(model.enrolled ? "Enrol again" : "Enrol my face")
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.ink)
@@ -52,8 +52,8 @@ struct ContentView: View {
                     .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.outline, lineWidth: 1))
             }
-            .disabled(model.busy || !model.canEnrol)
-            .opacity(model.busy || !model.canEnrol ? 0.45 : 1)
+            .disabled(model.busy || !model.canEnroll)
+            .opacity(model.busy || !model.canEnroll ? 0.45 : 1)
 
             Button(action: model.verify) {
                 Text("Verify")
@@ -75,7 +75,7 @@ struct ContentView: View {
 }
 
 extension CheckModel.Tone {
-    var colour: Color {
+    var color: Color {
         switch self {
         case .ink: return .ink
         case .green: return .okGreen

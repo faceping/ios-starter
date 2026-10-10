@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/faceping/faceping-ios",
       "state" : {
-        "revision" : "be6580331f68017e35e0b93d066dda1d1076e1b2",
-        "version" : "1.0.0-preview.2"
+        "revision" : "48108b1b5442715eb30b65beeb033d5fcc96b960",
+        "version" : "1.0.0-preview.3"
       }
     }
   ],

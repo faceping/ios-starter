@@ -10,7 +10,7 @@ options:
 packages:
   FacePing:
     url: https://github.com/faceping/faceping-ios
-    exactVersion: 1.0.0-preview.2
+    exactVersion: 1.0.0-preview.3
 settings:
   base:
     SWIFT_VERSION: "5.0"

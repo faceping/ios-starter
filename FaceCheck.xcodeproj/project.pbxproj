@@ -349,7 +349,7 @@
 			repositoryURL = "https://github.com/faceping/faceping-ios";
 			requirement = {
 				kind = exactVersion;
-				version = "1.0.0-preview.2";
+				version = "1.0.0-preview.3";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

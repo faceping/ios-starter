@@ -34,12 +34,12 @@ xcodebuild -project FaceCheck.xcodeproj -scheme FaceCheck -destination generic/p
 |---|---|
 | `FaceCheck/FaceCheckApp.swift` | Turns FacePing on with your sandbox key (`FacePing.configure(sandboxKey:)`), read from Info.plist. |
 | `FaceCheck/ContentView.swift` | The screen: the camera view (`FaceCamera`), the result and the two buttons. |
-| `FaceCheck/CheckModel.swift` | `enrol` and `verifyLive`, and what each result means. |
+| `FaceCheck/CheckModel.swift` | `enroll` and `verifyLive`, and what each result means. |
 | `Config/FaceCheck.xcconfig` | Where the sandbox key is set (`FACEPING_SANDBOX_KEY`), with `Config/Local.xcconfig` overriding it. |
 | `FaceCheck/Info.plist` | `NSCameraUsageDescription` (the camera prompt) and the key. |
 | `project.yml` | The [XcodeGen](https://github.com/yonaskolb/XcodeGen) spec `FaceCheck.xcodeproj` was generated from. You don't need XcodeGen; it's there if you'd rather edit the spec and run `xcodegen`. |
 
-The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.2`.
+The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.3`.
 
 ## The sandbox
 
