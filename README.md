@@ -39,7 +39,7 @@ xcodebuild -project FaceCheck.xcodeproj -scheme FaceCheck -destination generic/p
 | `FaceCheck/Info.plist` | `NSCameraUsageDescription` (the camera prompt) and the key. |
 | `project.yml` | The [XcodeGen](https://github.com/yonaskolb/XcodeGen) spec `FaceCheck.xcodeproj` was generated from. You don't need XcodeGen; it's there if you'd rather edit the spec and run `xcodegen`. |
 
-The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.1`. Simulator builds exclude `x86_64` (`EXCLUDED_ARCHS`): FacePing has Apple silicon simulator slices only.
+The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.2`.
 
 ## The sandbox
 
