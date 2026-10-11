@@ -20,6 +20,10 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacePingDeviceToken</key>
+	<string>$(FACEPING_DEVICE_TOKEN)</string>
+	<key>FacePingPersonId</key>
+	<string>$(FACEPING_PERSON_ID)</string>
 	<key>FacePingSandboxKey</key>
 	<string>$(FACEPING_SANDBOX_KEY)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

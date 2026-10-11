@@ -17,33 +17,52 @@ You need a Mac with Xcode 26 (or later) and an iPhone (iOS 15.1 or later) with a
 
    Or replace `fp_test_…` in `Config/FaceCheck.xcconfig`.
 3. **Open `FaceCheck.xcodeproj`** in Xcode. It fetches the FacePing package from GitHub the first time.
-4. **Set your team and bundle id**: select the FaceCheck target, **Signing & Capabilities**, pick your **Team**, and change the bundle identifier `com.example.facecheck` to your own (for example `com.yourcompany.facecheck`). You can also put `DEVELOPMENT_TEAM = YOURTEAMID` in `Config/Local.xcconfig`.
-5. **Run it on your iPhone** (choose it as the run destination, then **Run**). Allow the camera when asked.
+4. **Set your team and bundle id**: select the FaceCheck target, **Signing & Capabilities**, pick your **Team**, and change the bundle identifier `com.yourcompany.facecheck` to your own. You can also put `DEVELOPMENT_TEAM = YOURTEAMID` in `Config/Local.xcconfig`.
+5. **Run it on your iPhone** (choose it as the run destination, then **Run**). Allow the camera when asked. Xcode's **Run** makes a Debug build, which is several times slower at face checks: for real timings, edit the scheme (**Product → Scheme → Edit Scheme → Run → Build Configuration → Release**).
 6. Tap **Enrol my face**, then **Verify**: you should see **Match**. Now switch on airplane mode and tap **Verify** again.
 
 From the command line:
 
 ```bash
-xcodebuild -project FaceCheck.xcodeproj -scheme FaceCheck -destination generic/platform=iOS \
-  -allowProvisioningUpdates DEVELOPMENT_TEAM=YOURTEAMID PRODUCT_BUNDLE_IDENTIFIER=com.yourcompany.facecheck
+xcodebuild -project FaceCheck.xcodeproj -scheme FaceCheck -configuration Release -destination generic/platform=iOS \
+  -allowProvisioningUpdates -derivedDataPath build DEVELOPMENT_TEAM=YOURTEAMID PRODUCT_BUNDLE_IDENTIFIER=com.yourcompany.facecheck
+xcrun devicectl list devices      # your iPhone's identifier
+xcrun devicectl device install app --device <identifier> build/Build/Products/Release-iphoneos/FaceCheck.app
 ```
+
+## Try it as a check-in device
+
+Once you've tried the server side with your sandbox key (a practice check-in list, an enrolment link, a device), this app can be the check-in device:
+
+1. In the dashboard, open your practice list's **Devices** tab and add a device (or call `POST /v1/lists/{listId}/devices`). Copy the `fpd_` token.
+2. In `Config/Local.xcconfig`, set the token and the person to verify (the `personId` you enrolled on the practice list, through an enrolment link or from your server):
+
+   ```
+   FACEPING_DEVICE_TOKEN = fpd_yourtoken
+   FACEPING_PERSON_ID = ACME-000123
+   ```
+
+   With a device token set, the sandbox key is ignored. To keep the sandbox app on the phone as well, also set a different bundle id (for example `com.yourcompany.facecheck.device`).
+3. Run it. The app downloads the list, hides **Enrol my face** (a check-in device gets its people from the server) and opens **Verify** once that person is on the phone. After each sync it says what it found: how many people, or that the token isn't valid, the list has finished, or it couldn't connect.
+
+See [Devices and offline sync](https://docs.faceping.ai/devices/).
 
 ## What's where
 
 | File | What it does |
 |---|---|
-| `FaceCheck/FaceCheckApp.swift` | Turns FacePing on with your sandbox key (`FacePing.configure(sandboxKey:)`), read from Info.plist. |
+| `FaceCheck/FaceCheckApp.swift` | Turns FacePing on with your sandbox key (`FacePing.configure(sandboxKey:)`), or a device token (`configure(deviceToken:)`), read from Info.plist. |
 | `FaceCheck/ContentView.swift` | The screen: the camera view (`FaceCamera`), the result and the two buttons. |
-| `FaceCheck/CheckModel.swift` | `enroll` and `verifyLive`, and what each result means. |
-| `Config/FaceCheck.xcconfig` | Where the sandbox key is set (`FACEPING_SANDBOX_KEY`), with `Config/Local.xcconfig` overriding it. |
-| `FaceCheck/Info.plist` | `NSCameraUsageDescription` (the camera prompt) and the key. |
+| `FaceCheck/CheckModel.swift` | `enroll`, `verifyLive` and `sync`, and what each result means. `import Combine` is there because `ObservableObject` comes from Combine (new Xcode projects need the import). |
+| `Config/FaceCheck.xcconfig` | Where the sandbox key (`FACEPING_SANDBOX_KEY`), or a device token (`FACEPING_DEVICE_TOKEN`) and person (`FACEPING_PERSON_ID`), are set, with `Config/Local.xcconfig` overriding them. |
+| `FaceCheck/Info.plist` | `NSCameraUsageDescription` (the camera prompt), the key or token, and the person id. |
 | `project.yml` | The [XcodeGen](https://github.com/yonaskolb/XcodeGen) spec `FaceCheck.xcodeproj` was generated from. You don't need XcodeGen; it's there if you'd rather edit the spec and run `xcodegen`. |
 
 The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.3`.
 
 ## The sandbox
 
-Free, for building and testing: up to 25 faces per device, each deleted 24 hours after it was enrolled. Faces never leave the phone. The app needs a connection the first time it runs, to activate your key; after that it works offline for 30 days.
+Free, for building and testing: up to 25 faces per device, each deleted 24 hours after it was enrolled. Faces you enrol in the app never leave the phone. People on your practice list (see above) are held by FacePing, each for 24 hours. The app needs a connection the first time it runs, to activate your key; after that it works offline for 30 days.
 
 To use FacePing with real people, go live from your [FacePing dashboard](https://app.faceping.ai). Your verify code doesn't change.
 

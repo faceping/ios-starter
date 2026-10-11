@@ -1,11 +1,17 @@
 // FaceCheck build settings.
 //
-// Your sandbox key and your Apple team: set them in Config/Local.xcconfig (ignored by git), so they never end up in a
-// commit. Create it with these two lines:
+// Put your own values in Config/Local.xcconfig (ignored by git), so keys and tokens never end up in a commit. For
+// example:
 //   FACEPING_SANDBOX_KEY = fp_test_yourkey
 //   DEVELOPMENT_TEAM = YOURTEAMID
-// Or replace the placeholder below, or pass FACEPING_SANDBOX_KEY=fp_test_yourkey to xcodebuild.
+// Or replace the placeholders below, or pass them to xcodebuild (FACEPING_SANDBOX_KEY=fp_test_yourkey).
 // Get a free sandbox key at https://app.faceping.ai/signup (Developers > Sandbox keys > Create sandbox key).
 FACEPING_SANDBOX_KEY = fp_test_…
+
+// Check-in device mode: set a device token (fpd_…, from your practice list's Devices tab or POST
+// /v1/lists/{listId}/devices) and the person to verify (their personId). With a device token, the app downloads that
+// list's people instead of enrolling on the phone, and the sandbox key is ignored.
+FACEPING_DEVICE_TOKEN =
+FACEPING_PERSON_ID = me
 
 #include? "Local.xcconfig"

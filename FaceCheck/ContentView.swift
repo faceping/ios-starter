@@ -2,7 +2,7 @@ import FacePing
 import SwiftUI
 
 /// The same screen as the MAUI and Android FaceCheck: the camera with the result over its bottom edge, then Enrol my
-/// face and Verify. The pill says whether the phone has a network (the checks never need one).
+/// face and Verify (only Verify on a check-in device). The pill says whether the phone has a network (the checks never need one).
 struct ContentView: View {
     @StateObject private var model = CheckModel()
 
@@ -44,26 +44,28 @@ struct ContentView: View {
             .background(Color.cameraBackground)
             .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
 
-            Button(action: model.enroll) {
-                Text(model.enrolled ? "Enrol again" : "Enrol my face")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.ink)
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.outline, lineWidth: 1))
+            // On a check-in device people enrol on your server, so there's only Verify.
+            if model.canEnroll {
+                Button(action: model.enroll) {
+                    Text(model.enrolled ? "Enrol again" : "Enrol my face")
+                        .font(.system(size: 17, weight: .semibold))
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+                .tint(.brand)
+                .disabled(model.busy)
             }
-            .disabled(model.busy || !model.canEnroll)
-            .opacity(model.busy || !model.canEnroll ? 0.45 : 1)
 
             Button(action: model.verify) {
                 Text("Verify")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.brand))
+                    .font(.system(size: 17, weight: .semibold))
+                    .frame(maxWidth: .infinity, minHeight: 44)
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(.brand)
             .disabled(model.busy || !model.enrolled)
-            .opacity(model.busy || !model.enrolled ? 0.45 : 1)
         }
         .padding(.horizontal, 18)
         .padding(.top, 10)
@@ -93,6 +95,5 @@ extension Color {
     static let pill = Color(red: 0xEA / 255, green: 0xEC / 255, blue: 0xF0 / 255)
     static let pillOffline = Color(red: 0xFF / 255, green: 0xF4 / 255, blue: 0xE5 / 255)
     static let brand = Color(red: 0x25 / 255, green: 0x63 / 255, blue: 0xEB / 255)
-    static let outline = Color(red: 0xCB / 255, green: 0xD5 / 255, blue: 0xE1 / 255)
     static let cameraBackground = Color(red: 0x0B / 255, green: 0x12 / 255, blue: 0x20 / 255)
 }
