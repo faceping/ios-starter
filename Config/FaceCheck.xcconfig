@@ -4,9 +4,15 @@
 // example:
 //   FACEPING_SANDBOX_KEY = fp_test_yourkey
 //   DEVELOPMENT_TEAM = YOURTEAMID
+//   PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.facecheck
 // Or replace the placeholders below, or pass them to xcodebuild (FACEPING_SANDBOX_KEY=fp_test_yourkey).
 // Get a free sandbox key at https://app.faceping.ai/signup (Developers > Sandbox keys > Create sandbox key).
 FACEPING_SANDBOX_KEY = fp_test_…
+
+// Your bundle id and the name under the app's icon. Set them here or in Config/Local.xcconfig, not in Xcode's Signing &
+// Capabilities tab: a bundle id typed there is saved in the project and overrides both files.
+PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.facecheck
+FACECHECK_DISPLAY_NAME = FaceCheck
 
 // Check-in device mode: set a device token (fpd_…, from your practice list's Devices tab or POST
 // /v1/lists/{listId}/devices) and the person to verify (their personId). With a device token, the app downloads that

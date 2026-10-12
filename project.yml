@@ -10,7 +10,7 @@ options:
 packages:
   FacePing:
     url: https://github.com/faceping/faceping-ios
-    exactVersion: 1.0.0-preview.3
+    exactVersion: 1.0.0-preview.4
 settings:
   base:
     SWIFT_VERSION: "5.0"
@@ -29,9 +29,8 @@ targets:
       Release: Config/FaceCheck.xcconfig
     settings:
       base:
-        # Change this to your own bundle id, and set your team (Signing & Capabilities, or DEVELOPMENT_TEAM in
-        # Config/Local.xcconfig).
-        PRODUCT_BUNDLE_IDENTIFIER: com.yourcompany.facecheck
+        # The bundle id and display name are set in Config/FaceCheck.xcconfig, so Config/Local.xcconfig can override
+        # them (a separate id for the check-in device build, for example).
         PRODUCT_NAME: FaceCheck
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
@@ -40,7 +39,7 @@ targets:
     info:
       path: FaceCheck/Info.plist
       properties:
-        CFBundleDisplayName: FaceCheck
+        CFBundleDisplayName: $(FACECHECK_DISPLAY_NAME)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSCameraUsageDescription: FaceCheck uses the front camera to check it's you. In the sandbox your face stays on this phone.
