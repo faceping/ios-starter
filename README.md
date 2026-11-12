@@ -56,6 +56,8 @@ Once you've tried the server side with your sandbox key (a practice check-in lis
 
 See [Devices and offline sync](https://docs.faceping.ai/devices/).
 
+If your server needs proof that a check really happened, see [Signed check results](https://docs.faceping.ai/signed-results/).
+
 ## What's where
 
 | File | What it does |
@@ -67,7 +69,7 @@ See [Devices and offline sync](https://docs.faceping.ai/devices/).
 | `FaceCheck/Info.plist` | `NSCameraUsageDescription` (the camera prompt), the key or token, and the person id. |
 | `project.yml` | The [XcodeGen](https://github.com/yonaskolb/XcodeGen) spec `FaceCheck.xcodeproj` was generated from. You don't need XcodeGen; it's there if you'd rather edit the spec and run `xcodegen`. |
 
-The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.4`.
+The project depends on `https://github.com/faceping/faceping-ios` at exactly `1.0.0-preview.5`.
 
 ## The sandbox
 
